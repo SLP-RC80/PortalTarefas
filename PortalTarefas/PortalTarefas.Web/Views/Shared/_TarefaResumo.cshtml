@@ -1,0 +1,39 @@
+
+@model Tarefa
+
+<div class="d-flex flex-column gap-1">
+
+    <div class="fw-semibold">
+        @Model.Titulo
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Descricao))
+    {
+        <div class="small text-muted">
+            @Model.Descricao
+        </div>
+    }
+
+    <div class="d-flex align-items-center gap-2 mt-1">
+
+        @if (Model.Prioridade == 1)
+        {
+            <span class="badge bg-success">Baixa</span>
+        }
+        else if (Model.Prioridade == 2)
+        {
+            <span class="badge bg-warning text-dark">Média</span>
+        }
+        else
+        {
+            <span class="badge bg-danger">Alta</span>
+        }
+
+        <span class="small text-muted">
+            Prazo:
+            @(Model.Prazo?.ToString("dd/MM/yyyy") ?? "Não definido")
+        </span>
+
+    </div>
+
+</div>

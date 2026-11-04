@@ -1,0 +1,16 @@
+GET https://localhost:PORTA/api/tarefas/1
+
+###
+
+GET https://localhost:PORTA/api/tarefas?situacao=Pendente
+X-Cliente: PortalWeb
+
+###
+
+POST https://localhost:PORTA/api/tarefas
+Content-Type: application/json
+
+{
+  "titulo": "Estudar ASP.NET Core",
+  "descricao": "Executar atividade prática"
+}

@@ -1,0 +1,49 @@
+@model IReadOnlyList<Tarefa>
+
+@if (Model.Count > 0)
+{
+    <div class="alert alert-warning shadow-sm mb-4"
+         role="alert">
+
+        <div class="d-flex justify-content-between
+                    align-items-center mb-2">
+
+            <h5 class="mb-0">
+                Tarefas vencidas
+            </h5>
+
+            <span class="badge bg-danger">
+                @Model.Count
+            </span>
+
+        </div>
+
+        <p class="mb-2">
+            Existem tarefas que ultrapassaram o prazo estabelecido:
+        </p>
+
+        <ul class="mb-0">
+
+            @foreach (var tarefa in Model)
+            {
+                <li>
+                    <a asp-controller="TarefasPages"
+                       asp-action="Details"
+                       asp-route-id="@tarefa.Id"
+                       class="fw-semibold">
+
+                        @tarefa.Titulo
+
+                    </a>
+
+                    <span class="text-muted small">
+                        — Prazo:
+                        @tarefa.Prazo?.ToString("dd/MM/yyyy")
+                    </span>
+                </li>
+            }
+
+        </ul>
+
+    </div>
+}

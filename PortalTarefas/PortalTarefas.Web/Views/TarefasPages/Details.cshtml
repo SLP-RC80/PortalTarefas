@@ -1,0 +1,75 @@
+
+@model Tarefa
+
+@{
+    ViewData["Title"] = "Detalhes da Tarefa";
+}
+
+<div class="mb-4">
+    <h2 class="fw-bold">Detalhes da Tarefa</h2>
+    <p class="text-muted">
+        Visualização completa da atividade selecionada.
+    </p>
+</div>
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-body p-4">
+
+        <h4 class="mb-3">@Model.Titulo</h4>
+
+        <hr />
+
+        <dl class="row">
+
+            <dt class="col-sm-3">Identificador</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Descrição</dt>
+            <dd class="col-sm-9">
+                @(string.IsNullOrWhiteSpace(Model.Descricao)
+                    ? "Não informada"
+                    : Model.Descricao)
+            </dd>
+
+            <dt class="col-sm-3">Prioridade</dt>
+            <dd class="col-sm-9">
+
+                @if (Model.Prioridade == 1)
+                {
+                    <span class="badge bg-success">Baixa</span>
+                }
+                else if (Model.Prioridade == 2)
+                {
+                    <span class="badge bg-warning text-dark">Média</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">Alta</span>
+                }
+
+            </dd>
+
+            <dt class="col-sm-3">Prazo</dt>
+            <dd class="col-sm-9">
+                @(Model.Prazo?.ToString("dd/MM/yyyy")
+                    ?? "Não definido")
+            </dd>
+
+        </dl>
+
+        <hr />
+
+        <a asp-action="Edit"
+           asp-route-id="@Model.Id"
+           class="btn btn-primary">
+            Editar Tarefa
+        </a>
+
+        <a asp-action="Index"
+           class="btn btn-outline-secondary">
+            Voltar
+        </a>
+
+    </div>
+</div>

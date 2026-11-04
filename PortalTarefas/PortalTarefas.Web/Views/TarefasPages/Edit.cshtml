@@ -1,0 +1,120 @@
+
+@model TarefaInputModel
+
+@{
+    ViewData["Title"] = "Editar Tarefa";
+    var tarefaId = ViewContext.RouteData.Values["id"];
+}
+
+<div class="mb-4">
+    <h2 class="fw-bold">Editar Tarefa</h2>
+    <p class="text-muted">
+        Atualize as informações da atividade.
+    </p>
+</div>
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-body p-4">
+
+        <form asp-action="Edit"
+              asp-route-id="@tarefaId"
+              method="post">
+
+            <input asp-for="Versao" type="hidden" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Titulo"
+                       class="form-label">
+                    Título
+                </label>
+
+                <input asp-for="Titulo"
+                       class="form-control" />
+
+                <span asp-validation-for="Titulo"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Descricao"
+                       class="form-label">
+                    Descrição
+                </label>
+
+                <textarea asp-for="Descricao"
+                          class="form-control"
+                          rows="4">
+                </textarea>
+
+                <span asp-validation-for="Descricao"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Prioridade"
+                       class="form-label">
+                    Prioridade
+                </label>
+
+                <select asp-for="Prioridade"
+                        class="form-select">
+
+                    <option value="1">Baixa</option>
+                    <option value="2">Média</option>
+                    <option value="3">Alta</option>
+
+                </select>
+
+                <span asp-validation-for="Prioridade"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label asp-for="Prazo"
+                       class="form-label">
+                    Prazo
+                </label>
+
+                <input asp-for="Prazo"
+                       type="date"
+                       class="form-control" />
+
+                <span asp-validation-for="Prazo"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Salvar Alterações
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                Cancelar
+            </a>
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
