@@ -43,8 +43,9 @@ async function requisitar<T>(
 
   try {
     response = await fetch(url, {
-      ...options,
-      headers
+        ...options,
+        credentials: 'include',
+        headers
     });
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') {

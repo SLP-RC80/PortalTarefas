@@ -1,9 +1,12 @@
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PortalTarefas.Web.Models;
 
 namespace PortalTarefas.Web.Data;
 
-public sealed class PortalTarefasDbContext : DbContext
+public sealed class PortalTarefasDbContext
+    : IdentityDbContext<ApplicationUser>
 {
     public PortalTarefasDbContext(
         DbContextOptions<PortalTarefasDbContext> options)
@@ -11,15 +14,19 @@ public sealed class PortalTarefasDbContext : DbContext
     {
     }
 
+    // Entidades existentes do domínio.
     public DbSet<Tarefa> Tarefas => Set<Tarefa>();
 
     public DbSet<EventoAuditoria> EventosAuditoria
         => Set<EventoAuditoria>();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(
+        ModelBuilder modelBuilder)
     {
+        // Configura primeiro as tabelas do Identity.
         base.OnModelCreating(modelBuilder);
 
+        // Preserva as configurações das entidades existentes.
         modelBuilder.ApplyConfigurationsFromAssembly(
             typeof(PortalTarefasDbContext).Assembly);
 

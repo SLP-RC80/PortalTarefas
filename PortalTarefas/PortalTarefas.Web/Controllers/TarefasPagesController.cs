@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using PortalTarefas.Web.Models;
 using PortalTarefas.Web.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using PortalTarefas.Web.Authorization;
 
 namespace PortalTarefas.Web.Controllers;
 
+[Authorize(Policy = AuthorizationConstants.PolicyAccessTasks)]
 [Route("Tarefas")]
 public class TarefasPagesController : Controller
 {
@@ -46,6 +49,7 @@ public class TarefasPagesController : Controller
     // GET: /Tarefas/Criar
     // Exibe o formulário de cadastro.
     [HttpGet("Criar")]
+    [Authorize(Policy = AuthorizationConstants.PolicyManageTasks)]
     public IActionResult Create()
     {
         return View(new TarefaInputModel());
@@ -55,6 +59,7 @@ public class TarefasPagesController : Controller
     // Recebe, valida e persiste os dados.
     [HttpPost("Criar")]
     [ValidateAntiForgeryToken]
+    [Authorize(Policy = AuthorizationConstants.PolicyManageTasks)]
     public async Task<IActionResult> Create(TarefaInputModel model)
     {
         if (!ModelState.IsValid)
@@ -82,6 +87,7 @@ public class TarefasPagesController : Controller
     // GET: /Tarefas/1/Editar
     // Carrega os dados para edição.
     [HttpGet("{id:int}/Editar")]
+    [Authorize(Policy = AuthorizationConstants.PolicyManageTasks)]
     public async Task<IActionResult> Edit(int id)
     {
         var tarefa = await _tarefaService.ObterPorIdAsync(
@@ -110,6 +116,7 @@ public class TarefasPagesController : Controller
 
 [HttpPost("{id:int}/Editar")]
 [ValidateAntiForgeryToken]
+[Authorize(Policy = AuthorizationConstants.PolicyManageTasks)]
 public async Task<IActionResult> Edit(
     int id,
     TarefaInputModel model)

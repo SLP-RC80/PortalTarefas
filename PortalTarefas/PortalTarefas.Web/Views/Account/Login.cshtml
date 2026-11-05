@@ -1,0 +1,114 @@
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Entrar";
+}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-7 col-lg-5">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header bg-primary text-white text-center py-3">
+
+                <h4 class="mb-0">Entrar</h4>
+
+                <small>Portal de Tarefas</small>
+
+            </div>
+
+            <div class="card-body p-4">
+
+                <p class="text-muted text-center mb-4">
+                    Informe suas credenciais para acessar o sistema.
+                </p>
+
+                <form asp-action="Login" method="post">
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Email"
+                               class="form-label">
+                            E-mail
+                        </label>
+
+                        <input asp-for="Email"
+                               class="form-control"
+                               placeholder="seu@email.com" />
+
+                        <span asp-validation-for="Email"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Senha"
+                               class="form-label">
+                            Senha
+                        </label>
+
+                        <input asp-for="Senha"
+                               class="form-control"
+                               placeholder="Digite sua senha" />
+
+                        <span asp-validation-for="Senha"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+                    <div class="form-check mb-4">
+
+                        <input asp-for="LembrarMe"
+                               class="form-check-input" />
+
+                        <label asp-for="LembrarMe"
+                               class="form-check-label">
+                            Manter conectado
+                        </label>
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary w-100">
+                        Entrar no sistema
+                    </button>
+
+                </form>
+
+                <hr />
+
+                <div class="text-center">
+
+                    <span class="text-muted">
+                        Ainda não possui cadastro?
+                    </span>
+
+                    <a asp-controller="Account"
+                       asp-action="Register"
+                       class="fw-semibold text-decoration-none">
+                        Criar conta
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

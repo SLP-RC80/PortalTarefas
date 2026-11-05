@@ -1,8 +1,17 @@
+@using Microsoft.AspNetCore.Authorization
+@using PortalTarefas.Web.Authorization
+@inject IAuthorizationService AuthorizationService
 
 @model IReadOnlyList<Tarefa>
 
 @{
     ViewData["Title"] = "Minhas Tarefas";
+
+    var podeGerenciar = (await AuthorizationService
+        .AuthorizeAsync(
+            User,
+            AuthorizationConstants.PolicyManageTasks
+        )).Succeeded;
 }
 
 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -14,9 +23,12 @@
         </p>
     </div>
 
+@if (podeGerenciar)
+{
     <a asp-action="Create" class="btn btn-primary">
         + Nova Tarefa
     </a>
+}
 
 </div>
 
@@ -78,11 +90,14 @@
                     Detalhes
                 </a>
 
-                <a asp-action="Edit"
-                   asp-route-id="@tarefa.Id"
-                   class="btn btn-sm btn-outline-secondary">
-                    Editar
-                </a>
+                @if (podeGerenciar)
+                {
+                    <a asp-action="Edit"
+                    asp-route-id="@tarefa.Id"
+                    class="btn btn-sm btn-outline-secondary">
+                        Editar
+                    </a>
+                }
 
             </td>
 

@@ -1,0 +1,136 @@
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Criar conta";
+}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-7 col-lg-5">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header bg-primary text-white text-center py-3">
+
+                <h4 class="mb-0">Criar conta</h4>
+
+                <small>Portal de Tarefas</small>
+
+            </div>
+
+            <div class="card-body p-4">
+
+                <p class="text-muted text-center mb-4">
+                    Preencha os dados para criar seu acesso.
+                </p>
+
+                <form asp-action="Register" method="post">
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="NomeExibicao"
+                               class="form-label">
+                            Nome completo
+                        </label>
+
+                        <input asp-for="NomeExibicao"
+                               class="form-control"
+                               placeholder="Digite seu nome" />
+
+                        <span asp-validation-for="NomeExibicao"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Email"
+                               class="form-label">
+                            E-mail
+                        </label>
+
+                        <input asp-for="Email"
+                               class="form-control"
+                               placeholder="seu@email.com" />
+
+                        <span asp-validation-for="Email"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Senha"
+                               class="form-label">
+                            Senha
+                        </label>
+
+                        <input asp-for="Senha"
+                               class="form-control"
+                               placeholder="Mínimo de 8 caracteres" />
+
+                        <span asp-validation-for="Senha"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label asp-for="ConfirmarSenha"
+                               class="form-label">
+                            Confirmar senha
+                        </label>
+
+                        <input asp-for="ConfirmarSenha"
+                               class="form-control"
+                               placeholder="Repita sua senha" />
+
+                        <span asp-validation-for="ConfirmarSenha"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary w-100">
+                        Criar minha conta
+                    </button>
+
+                </form>
+
+                <hr />
+
+                <div class="text-center">
+
+                    <span class="text-muted">
+                        Já possui cadastro?
+                    </span>
+
+                    <a asp-controller="Account"
+                       asp-action="Login"
+                       class="fw-semibold text-decoration-none">
+                        Entrar
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

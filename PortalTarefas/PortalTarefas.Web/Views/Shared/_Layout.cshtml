@@ -1,9 +1,12 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
 
     <title>@ViewData["Title"] - Portal de Tarefas</title>
 
@@ -17,60 +20,140 @@
     <link rel="stylesheet"
           href="~/PortalTarefas.Web.styles.css"
           asp-append-version="true" />
+
 </head>
 
 <body class="bg-light">
 
     <header>
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+
             <div class="container">
 
                 <a class="navbar-brand fw-bold"
                    asp-controller="TarefasPages"
                    asp-action="Index">
+
                     Portal de Tarefas
+
                 </a>
 
                 <button class="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#menuPrincipal">
+
                     <span class="navbar-toggler-icon"></span>
+
                 </button>
 
                 <div class="collapse navbar-collapse"
                      id="menuPrincipal">
 
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
 
                         <li class="nav-item">
+
                             <a class="nav-link"
                                asp-controller="Home"
                                asp-action="Index">
+
                                 Início
+
                             </a>
+
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               asp-controller="TarefasPages"
-                               asp-action="Index">
-                                Tarefas
-                            </a>
-                        </li>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               asp-controller="TarefasPages"
-                               asp-action="Create">
-                                Nova tarefa
-                            </a>
-                        </li>
+                                <a class="nav-link"
+                                   asp-controller="TarefasPages"
+                                   asp-action="Index">
+
+                                    Tarefas
+
+                                </a>
+
+                            </li>
+
+                            <li class="nav-item">
+
+                                <a class="nav-link"
+                                   asp-controller="TarefasPages"
+                                   asp-action="Create">
+
+                                    Nova tarefa
+
+                                </a>
+
+                            </li>
+
+                            <li class="nav-item">
+
+                                <span class="navbar-text text-white px-3">
+
+                                    Olá, @User.Identity.Name
+
+                                </span>
+
+                            </li>
+
+                            <li class="nav-item">
+
+                                <form asp-controller="Account"
+                                      asp-action="Logout"
+                                      method="post"
+                                      class="d-inline">
+
+                                    <button type="submit"
+                                            class="btn btn-outline-light btn-sm">
+
+                                        Sair
+
+                                    </button>
+
+                                </form>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+
+                                <a class="nav-link"
+                                   asp-controller="Account"
+                                   asp-action="Login">
+
+                                    Entrar
+
+                                </a>
+
+                            </li>
+
+                            <li class="nav-item ms-lg-2">
+
+                                <a class="btn btn-light btn-sm text-primary fw-semibold"
+                                   asp-controller="Account"
+                                   asp-action="Register">
+
+                                    Criar conta
+
+                                </a>
+
+                            </li>
+                        }
 
                     </ul>
+
                 </div>
+
             </div>
+
         </nav>
+
     </header>
 
     <main class="container py-4" role="main">
@@ -80,19 +163,26 @@
     </main>
 
     <footer class="border-top bg-white py-3 mt-5">
+
         <div class="container text-center text-muted">
+
             &copy; 2026 - Portal de Tarefas
+
             | Aplicação desenvolvida com ASP.NET Core MVC e Razor
+
         </div>
+
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
+
 </html>

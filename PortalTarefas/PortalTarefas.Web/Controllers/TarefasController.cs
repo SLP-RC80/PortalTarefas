@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using PortalTarefas.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using PortalTarefas.Web.Authorization;
 
 namespace PortalTarefas.Web.Controllers;
 
+[Authorize(Policy = AuthorizationConstants.PolicyAccessTasks)]
 [ApiController]
 [Route("api/mvc/tarefas")]
 public class TarefasController : ControllerBase
@@ -72,9 +75,10 @@ public class TarefasController : ControllerBase
     }
 
     // 3. Cadastro com JSON Body
-    [HttpPost]
-    public IActionResult Criar(
-        [FromBody] TarefaDto request)
+[Authorize(Policy = AuthorizationConstants.PolicyManageTasks)]
+[HttpPost]
+public IActionResult Criar(
+    [FromBody] TarefaDto request)
     {
         if (!ModelState.IsValid)
         {

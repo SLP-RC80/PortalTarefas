@@ -666,3 +666,91 @@
     width: 100%;
   }
 }
+
+
+/* ==========================================
+   IDENTIFICACAO DO USUARIO AUTENTICADO
+   ========================================== */
+
+.topbar-account {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.account-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.account-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  max-width: 220px;
+}
+
+.account-identity strong {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-identity small {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  overflow-wrap: anywhere;
+}
+
+.account-role {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.account-role-admin {
+  background: #fff1d6;
+  color: #925c00;
+}
+
+.account-role-user {
+  background: #e8f0ff;
+  color: #2458a6;
+}
+
+.account-logout {
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+
+  .topbar-content {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .topbar-account {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .account-panel {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .account-identity {
+    max-width: 45vw;
+  }
+
+}

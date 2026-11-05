@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PortalTarefas.Web.Models;
 using PortalTarefas.Web.Services;
+using Microsoft.AspNetCore.Authorization;
+using PortalTarefas.Web.Authorization;
 
 namespace PortalTarefas.Web.Controllers;
 
+[Authorize(Policy = AuthorizationConstants.PolicyAccessTasks)]
 [ApiController]
 [Route("api/v1/tarefas")]
 [Produces("application/json")]
@@ -120,6 +123,7 @@ public sealed class TarefasV1Controller : ControllerBase
 
     // POST /api/v1/tarefas
     // Cadastro utilizando persistência EF Core.
+    [Authorize(Policy = AuthorizationConstants.PolicyManageTasks)]
     [HttpPost]
     [ProducesResponseType(typeof(Tarefa),
         StatusCodes.Status201Created)]
@@ -149,6 +153,7 @@ public sealed class TarefasV1Controller : ControllerBase
 
     // PUT /api/v1/tarefas/1
     // Atualização com controle de concorrência.
+    [Authorize(Policy = AuthorizationConstants.PolicyManageTasks)]
     [HttpPut("{id:int}")]
     [ProducesResponseType(typeof(Tarefa),
         StatusCodes.Status200OK)]
