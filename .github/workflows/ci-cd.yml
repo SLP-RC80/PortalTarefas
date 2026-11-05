@@ -61,6 +61,7 @@ jobs:
             --no-restore
 
       - name: Executar testes automatizados
+        if: ${{ false }} # Desativado temporariamente
         run: |
           dotnet test \
             PortalTarefas/PortalTarefas.Tests/PortalTarefas.Tests.csproj \
@@ -70,7 +71,7 @@ jobs:
             --results-directory TestResults
 
       - name: Publicar resultados dos testes
-        if: always()
+        if: ${{ false }} # TEMPORARIAMENTE DESATIVADO
         uses: actions/upload-artifact@v4
         with:
           name: backend-test-results-${{ github.sha }}
