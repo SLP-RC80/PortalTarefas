@@ -88,7 +88,7 @@ builder.Services.AddOpenTelemetry()
 // 1. CONFIGURACAO DO BANCO DE DADOS
 // ==========================================
 
-var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL")
+var databaseUrl = builder.Configuration["DATABASE_URL"]
     ?? throw new InvalidOperationException(
         "A variável DATABASE_URL não foi configurada.");
 

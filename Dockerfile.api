@@ -1,0 +1,55 @@
+
+# ==========================================
+# ETAPA 1 - BUILD
+# ==========================================
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+
+WORKDIR /src
+
+# Copiar projeto e restaurar dependencias
+COPY ["PortalTarefas/PortalTarefas.Web/PortalTarefas.Web.csproj", "PortalTarefas/PortalTarefas.Web/"]
+
+RUN dotnet restore "PortalTarefas/PortalTarefas.Web/PortalTarefas.Web.csproj"
+
+# Copiar codigo-fonte
+COPY . .
+
+WORKDIR /src/PortalTarefas/PortalTarefas.Web
+
+# Publicar aplicacao
+RUN dotnet publish "PortalTarefas.Web.csproj" \
+    -c Release \
+    -o /app/publish \
+    --no-restore \
+    /p:UseAppHost=false
+
+# ==========================================
+# ETAPA 2 - IMAGEM FINAL DE EXECUCAO
+# ==========================================
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
+
+WORKDIR /app
+
+# Curl utilizado pelo Health Check
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar somente os arquivos publicados
+COPY --from=build /app/publish .
+
+ENV ASPNETCORE_HTTP_PORTS=8080
+
+EXPOSE 8080
+
+# Health Check utilizando Readiness
+HEALTHCHECK --interval=15s \
+    --timeout=5s \
+    --start-period=45s \
+    --retries=5 \
+    CMD curl --fail --silent http://localhost:8080/health/ready || exit 1
+
+# Executar como usuario nao privilegiado
+USER $APP_UID
+
+ENTRYPOINT ["dotnet", "PortalTarefas.Web.dll"]

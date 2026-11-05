@@ -1,0 +1,38 @@
+
+services:
+
+  api:
+    image: portaltarefas-api:local
+
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+
+    env_file:
+      - .env
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_HTTP_PORTS: "8080"
+      FrontendOrigin: "http://localhost:8081"
+
+    ports:
+      - "8080:8080"
+
+    restart: unless-stopped
+
+  frontend:
+    image: portaltarefas-frontend:local
+
+    build:
+      context: ./PortalTarefas.Frontend
+      dockerfile: Dockerfile
+
+    ports:
+      - "8081:80"
+
+    depends_on:
+      api:
+        condition: service_healthy
+
+    restart: unless-stopped
